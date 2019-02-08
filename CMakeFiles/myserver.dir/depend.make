@@ -59,7 +59,6 @@ CMakeFiles/myserver.dir/src/Response/HttpResponse.cpp.o: src/Response/HttpRespon
 
 CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o: src/DataVariant/Abstract.h
 CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o: src/Request/HttpRequest.h
-CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o: src/Resource/Resource.h
 CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o: src/Response/HttpResponse.h
 CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o: src/Server/HttpStatusCode.h
 CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o: src/Server/ServeHttp.cpp
@@ -145,6 +144,7 @@ CMakeFiles/myserver.dir/src/Socket/Socket.cpp.o: /usr/include/x86_64-linux-gnu/s
 
 CMakeFiles/myserver.dir/src/main.cpp.o: src/DataVariant/Abstract.h
 CMakeFiles/myserver.dir/src/main.cpp.o: src/Request/HttpRequest.h
+CMakeFiles/myserver.dir/src/main.cpp.o: src/Response/HttpResponse.h
 CMakeFiles/myserver.dir/src/main.cpp.o: src/Server/HttpStatusCode.h
 CMakeFiles/myserver.dir/src/main.cpp.o: src/Server/ServeHttp.h
 CMakeFiles/myserver.dir/src/main.cpp.o: src/Socket/Socket.h

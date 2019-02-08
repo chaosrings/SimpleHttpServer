@@ -1,6 +1,4 @@
 #include "ServeHttp.h"
-#include "../Resource/Resource.h"
-#include "../Response/HttpResponse.h"
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -44,7 +42,7 @@ bool ServeHttp::serveStatic(HttpRequest& request){
 	/*----------------------set response headers-------------------*/
 	HttpResponse response;
 	response.putHeaderValue("Server","Server by LZL");
-	response.putHeaderValue("Connection",request.getConnectionParam());
+	response.putHeaderValue("Connection",request.getHeader("connection"));
 	response.putHeaderValue("Content-Length",std::to_string(fileSize));
 	static std::unordered_set<std::string> imageTypes{"gif","jpeg","png","jpg"};
 	static std::unordered_set<std::string> textTypes{"html","plain","xml"};
@@ -77,8 +75,36 @@ bool ServeHttp::serveStatic(HttpRequest& request){
     munmap(bytes,fileSize);
     
 }
+bool ServeHttp::serveDynamic(HttpRequest& request,
+	const std::unordered_map<std::string,std::function<std::string(HttpRequest&,HttpResponse&)> > &route)
+{
+	auto methodname=request.getMethod()+":"+request.getUrl();
+	auto iter=route.find(methodname);
+	if(iter==route.cend())
+	{
+		//can't find method
+		this->sendStatus(Http::StatusCode::NOT_FOUND);
+		return false;
+	}
+	HttpResponse response;
+	response.putHeaderValue("Server","Server by LZL");
+	response.putHeaderValue("Connection",request.getHeader("connection"));
 
-bool ServeHttp::process()
+	//handle iter and set content length
+	std::string responseBody=(iter->second)(request,response);
+	response.putHeaderValue("Content-Length",std::to_string(responseBody.size()));
+	response.putHeaderValue("Content-Type","text/html;utf-8");
+
+	 /*----------------------send status-------------------*/
+	sendStatus(Http::StatusCode::OK);
+	 /*----------------------send headers-------------------*/
+	std::string responseStr=std::move(response.toString());
+	this->socket.send(responseStr);
+	/*----------------------send body-------------------*/
+	this->socket.send(responseBody);
+}
+
+bool ServeHttp::process(const std::unordered_map<std::string,std::function<std::string(HttpRequest&,HttpResponse&)> >  &route)
 {
 	request.timeout=std::chrono::milliseconds(5000);
 	do
@@ -119,6 +145,7 @@ bool ServeHttp::process()
 			else
 			{
 				//serve dynamic
+				serveDynamic(request,route);
 			}
 		}while(untreated>0&&request.isKeepAlive()==true);
 	}while(request.isKeepAlive());

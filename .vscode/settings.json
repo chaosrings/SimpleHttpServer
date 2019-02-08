@@ -46,7 +46,8 @@
         "optional": "cpp",
         "string_view": "cpp",
         "string": "cpp",
-        "unordered_set": "cpp"
+        "unordered_set": "cpp",
+        "cinttypes": "cpp"
     },
     "C_Cpp.configurationWarnings": "Disabled"
 }

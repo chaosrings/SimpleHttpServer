@@ -6,52 +6,47 @@
 #include <future>
 #include <memory.h>
 #include <string>
+#include <functional>
 
 #include "Server/ServeHttp.h"
 #include "Socket/Socket.h"
 #include "Request/HttpRequest.h"
+#include "Response/HttpResponse.h"
 #include "ThreadPool/threadpool.hpp"
 using namespace std;
 
-void testClient(char*  dotip,uint16_t port)
+string getIndexHandle(HttpRequest &request,HttpResponse &response)
 {
-	int clientsock_fd = ::socket(PF_INET, SOCK_STREAM, 0);
-	
-	sockaddr_in serveraddr;
-	memset(&serveraddr, 0, sizeof(serveraddr));
-	serveraddr.sin_addr.s_addr = inet_addr(dotip);
-	serveraddr.sin_family = AF_INET;	
-	serveraddr.sin_port = htons(port);;
-	cout << "connet "<<dotip<<" : " << port << endl;
-	if (::connect(clientsock_fd, reinterpret_cast<struct sockaddr*>(&serveraddr), sizeof(serveraddr)) ==-1)
-		cout << "connet error" << endl;
-	std::string tosend = "GET /index.html HTTP/1.1\r\n"\
-	"User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0\r\n"\
-	"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n"\
-	"Accept-Language: en-GB,en;q=0.5\r\n"\
-	"Accept-Encoding: gzip, deflate\r\n"\
-	"Referer: http://hub.hust.edu.cn/index.jsp\r\n";
-	int count = 0;
-	vector<char> recv_buf(4096);
-	while (count<3)
+	string res="<html><body>";
+	int uid=stoi(request.getParameter("uid"));
+	res+="<h1>";
+	if(uid==1)
 	{
-		cout << "send " << count + 1 << endl;
-		::send(clientsock_fd, reinterpret_cast<const void*>(tosend.data()), tosend.size(), 0);
-		++count;
-		//std::this_thread::sleep_for(std::chrono::milliseconds(2500));
+		res+="hello uid:1 ";
 	}
-	close(clientsock_fd);
+	else if(uid==2)
+	{
+		res+="hello uid:2 you are lucky";
+	}
+	else
+	{
+		res+="welcome stranger";
+	}
+	res+="</h1>";
+	res+="</body></html>";
+	return res;
 }
-
 
 int main(int argc,char** argv)
 {
+	std::unordered_map<std::string,std::function<std::string(HttpRequest&,HttpResponse&)> > route;
+	route["get:/index"]=getIndexHandle;
 	if (argc != 2)
 	{
 		cout << "usage [] server port" << endl;
 		return -1;
 	}
-	else if (argc == 3)
+	else
 	{
 		thread_pool work_pool;
 		cout << "init sever" << endl;
@@ -64,10 +59,15 @@ int main(int argc,char** argv)
 		while (true)
 		{
 			auto client_sock = server.accept();
-			auto fut=work_pool.sumbit([&client_sock]()
+			client_sock.tcp_nodelay();
+			//打印状态 
+			work_pool.sumbit([&work_pool]{
+				work_pool.printStatus();
+			});
+			auto fut=work_pool.sumbit([&client_sock,&route]()
 			{
 				ServeHttp serve(std::move(client_sock));
-				bool success=serve.process();
+				bool success=serve.process(route);
 				#ifdef DEBUG
 					std::cout<<"thread "<<std::this_thread::get_id()<<" process success"<<endl;
 				#endif

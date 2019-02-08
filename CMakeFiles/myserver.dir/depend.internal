@@ -60,7 +60,6 @@ CMakeFiles/myserver.dir/src/Response/HttpResponse.cpp.o
 CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o
  /home/chaosrings/Desktop/myserver/src/DataVariant/Abstract.h
  /home/chaosrings/Desktop/myserver/src/Request/HttpRequest.h
- /home/chaosrings/Desktop/myserver/src/Resource/Resource.h
  /home/chaosrings/Desktop/myserver/src/Response/HttpResponse.h
  /home/chaosrings/Desktop/myserver/src/Server/HttpStatusCode.h
  /home/chaosrings/Desktop/myserver/src/Server/ServeHttp.cpp
@@ -146,6 +145,7 @@ CMakeFiles/myserver.dir/src/Socket/Socket.cpp.o
 CMakeFiles/myserver.dir/src/main.cpp.o
  /home/chaosrings/Desktop/myserver/src/DataVariant/Abstract.h
  /home/chaosrings/Desktop/myserver/src/Request/HttpRequest.h
+ /home/chaosrings/Desktop/myserver/src/Response/HttpResponse.h
  /home/chaosrings/Desktop/myserver/src/Server/HttpStatusCode.h
  /home/chaosrings/Desktop/myserver/src/Server/ServeHttp.h
  /home/chaosrings/Desktop/myserver/src/Socket/Socket.h

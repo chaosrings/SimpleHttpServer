@@ -5,6 +5,7 @@
 #include <functional>
 #include<mutex>
 #include <future>
+#include <stdio.h>
 
 template<typename T>
 class threadsafe_queue {
@@ -104,6 +105,8 @@ private:
 		function_wrapper& operator=(const function_wrapper&) = delete;
 	};
 	std::atomic<bool> done;
+	std::atomic<unsigned int> idleNum;
+	std::atomic<unsigned int> totalNum;
 	threadsafe_queue<function_wrapper> work_queue;
 	std::vector<std::thread> threads;
 	void worker_thread() {
@@ -111,7 +114,11 @@ private:
 		{
 			function_wrapper task;
 			if (work_queue.try_pop(task) == true) 
+			{
+				--idleNum;
 				task();
+				++idleNum;
+			}
 			else 
 				std::this_thread::yield();
 		}
@@ -119,6 +126,8 @@ private:
 public:
 	thread_pool() :done(false) {
 		const unsigned thread_count = std::thread::hardware_concurrency();
+		totalNum.store(thread_count);
+		idleNum.store(thread_count);
 		try
 		{
 			for (unsigned i = 0; i < thread_count; ++i)
@@ -154,5 +163,11 @@ public:
 		function_wrapper task(std::move(temp));
 		work_queue.push(std::move(task));
 		return res;
+	}
+	void printStatus()
+	{
+		char line[1024];
+		size_t s=sprintf(line,"idle thread : %d total thread : %d \n",idleNum.load(),totalNum.load());
+		write(STDOUT_FILENO,line,s);
 	}
 };

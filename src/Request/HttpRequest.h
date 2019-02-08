@@ -28,7 +28,6 @@ public:
     HttpRequest() noexcept{}
     HttpRequest(const HttpRequest &rhs) noexcept =default;
     HttpRequest(HttpRequest&& rhs) noexcept :headers(std::move(rhs.headers)),params(std::move(rhs.params)),
-    contentType(std::move(rhs.contentType)),
     data(std::move(rhs.data)),
     method(std::move(rhs.method)),
     url(std::move(rhs.url)),
@@ -39,9 +38,18 @@ public:
     HttpRequest& operator=(const HttpRequest& rhs) noexcept =default;
     HttpRequest& operator=(HttpRequest&& rhs) noexcept=default;
 
-
-    std::string getConnectionParam(){return headers["connection"];}
-    std::string getParameter(std::string key){return params[key];}
+    std::string getUrl(){return this->url;}
+    std::string getMethod(){return this->method;}
+    std::string getHeader(std::string header)
+    {
+        auto iter=headers.find(header);
+        return iter!=headers.end()? iter->second:"";
+    }
+    std::string getParameter(std::string key)
+    {
+        auto iter=params.find(key);
+        return iter!=params.end()? iter->second:"";
+    }
     bool isKeepAlive(){return keep_alive;}
     std::string getRequestFileType();
     bool parserHeader(std::string &strbuf,long &untreated);

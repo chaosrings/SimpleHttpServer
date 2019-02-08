@@ -7,14 +7,14 @@
 
 std::string HttpRequest::getRequestFileType(){
 	int dot_pos=-1;
-	for(int i=static_cast<int>(url.size()-1);i>=0;--i){
+	for(int i=static_cast<int>(url.size()-1);i>=0&&url[i]!='/';--i){
 		if(url[i]=='.')
 		{
 			dot_pos=i;
 			break;
 		}
 	}
-	if(dot_pos!=0){
+	if(dot_pos!=-1&&url[dot_pos]!='/'){
 		return url.substr(dot_pos+1);
 	}
 	return "";
@@ -148,13 +148,10 @@ bool HttpRequest::setState(){
 
 bool HttpRequest::parserBody(std::string &strbuf,long &untreated,Socket::Socket &socket){
 	auto iter=headers.find("content-type");
-	
-	if(iter!=headers.end())
+	if(iter==headers.end())
 	{
-		//set content Type;
-		contentType=iter->second;
-	}else{
-		return false;
+		//no request body parser end
+		return true;
 	}
 	long body_length=0;
 	iter=headers.find("content-length");

@@ -1,10 +1,11 @@
 #pragma once
 
 #include <string>
+#include <functional>
 #include "HttpStatusCode.h"
 #include "../Socket/Socket.h"
 #include "../Request/HttpRequest.h"
-
+#include "../Response/HttpResponse.h"
 class ServeHttp
 {
 private:
@@ -20,7 +21,8 @@ public:
     ~ServeHttp(){socket.close();}
     void sendStatus(Http::StatusCode code);
     bool serveStatic(HttpRequest& request);
-    bool serveDynamic();
-    bool process();
+    bool serveDynamic(HttpRequest& request,
+    const std::unordered_map<std::string,std::function<std::string(HttpRequest&,HttpResponse&)>> &route);
+    bool process(const std::unordered_map<std::string,std::function<std::string(HttpRequest&,HttpResponse&)>> &route);
     bool sendStatusCode(Http::StatusCode errorcode);
 };
