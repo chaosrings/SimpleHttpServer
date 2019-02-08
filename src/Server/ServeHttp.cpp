@@ -19,7 +19,7 @@ void ServeHttp::sendStatus(Http::StatusCode code){
 		{503,"Server Unavailable"}
 	};
 	int intcode=static_cast<int>(code);
-	std::string message="HTTP/1.1 "+std::to_string(intcode)+" "+dict[intcode];
+	std::string message="HTTP/1.1 "+std::to_string(intcode)+" "+dict[intcode]+"\r\n";
 	this->socket.send(message);
 }
 bool ServeHttp::serveStatic(HttpRequest& request){
@@ -45,20 +45,23 @@ bool ServeHttp::serveStatic(HttpRequest& request){
 	response.putHeaderValue("Connection",request.getHeader("connection"));
 	response.putHeaderValue("Content-Length",std::to_string(fileSize));
 	static std::unordered_set<std::string> imageTypes{"gif","jpeg","png","jpg"};
-	static std::unordered_set<std::string> textTypes{"html","plain","xml"};
+	static std::unordered_set<std::string> textTypes{"html","plain","xml","css"};
 	auto reqFileType=request.getRequestFileType();
 	if(imageTypes.find(reqFileType)!=imageTypes.end())
 	{
 		//request img;
 		response.putHeaderValue("Content-Type","image/"+reqFileType);
-		
 	}
 	else if(textTypes.find(reqFileType)!=imageTypes.end())
 	{
 		//request text
 		response.putHeaderValue("Content-Type","text/"+reqFileType+";utf-8");
 	}
-	else
+	else if(reqFileType=="js")
+	{
+		response.putHeaderValue("Content-Type","application/javascript");
+	}
+	else 
 	{
 		//default raw binary..
 		response.putHeaderValue("Content-Type","application/octet-stream");
@@ -94,7 +97,6 @@ bool ServeHttp::serveDynamic(HttpRequest& request,
 	std::string responseBody=(iter->second)(request,response);
 	response.putHeaderValue("Content-Length",std::to_string(responseBody.size()));
 	response.putHeaderValue("Content-Type","text/html;utf-8");
-
 	 /*----------------------send status-------------------*/
 	sendStatus(Http::StatusCode::OK);
 	 /*----------------------send headers-------------------*/
