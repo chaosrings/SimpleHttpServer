@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Socket/Socket.cpp.o -c /home/chaosrings/Desktop/myserver/src/Socket/Socket.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Socket/Socket.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o -c /home/chaosrings/Desktop/myserver/src/Server/ServeHttp.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Server/ServeHttp.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Request/HttpRequest.cpp.o -c /home/chaosrings/Desktop/myserver/src/Request/HttpRequest.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Request/HttpRequest.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Response/HttpResponse.cpp.o -c /home/chaosrings/Desktop/myserver/src/Response/HttpResponse.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Response/HttpResponse.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Resource/Resource.cpp.o -c /home/chaosrings/Desktop/myserver/src/Resource/Resource.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Resource/Resource.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/DataVariant/FormUrlencoded.cpp.o -c /home/chaosrings/Desktop/myserver/src/DataVariant/FormUrlencoded.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/DataVariant/FormUrlencoded.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/DataVariant/TextPlain.cpp.o -c /home/chaosrings/Desktop/myserver/src/DataVariant/TextPlain.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/DataVariant/TextPlain.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/main.cpp.o -c /home/chaosrings/Desktop/myserver/src/main.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/main.cpp"
+}
+]

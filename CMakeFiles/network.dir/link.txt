@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/network.dir/src/Socket/Socket.cpp.o CMakeFiles/network.dir/src/main.cpp.o  -o bin/network  -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lpthread 
