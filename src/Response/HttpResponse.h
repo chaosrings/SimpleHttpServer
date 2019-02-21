@@ -6,14 +6,14 @@
 class HttpResponse
 {
 private:
-  std::vector<std::pair<std::string,std::string> > headers;
+  std::unordered_map<std::string,std::string> headers;
 public:
     HttpResponse()=default;
     ~HttpResponse()=default;
     HttpResponse& operator=(const HttpResponse& rhs)=default;
     void putHeaderValue(std::string header,std::string value)
     {
-      headers.push_back(std::make_pair(header,value));
+        headers[header]=value;
     }
     std::string toString();
 };

@@ -1,4 +1,5 @@
 #include "Socket.h"
+#include <fcntl.h>
 namespace Socket
 {
 	Socket::Socket() noexcept :fd(-1){this->dotip="0.0.0.0";this->port=0;}
@@ -138,6 +139,10 @@ namespace Socket
 			return false;
 		}
 		return true;
+	}
+	bool Socket::tcp_nonblock() const noexcept
+	{
+		return fcntl(fd,fcntl(fd,F_GETFL,0)|O_NONBLOCK)!=1;
 	}
 
 }

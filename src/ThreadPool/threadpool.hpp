@@ -154,7 +154,7 @@ public:
 	}
 	//返回一个future<T> 得到任务的返回值
 	template<typename FuncType> 
-	std::future<typename std::result_of<FuncType()>::type> sumbit(FuncType f)
+	std::future<typename std::result_of<FuncType()>::type> submit(FuncType f)
 	{	
     
 		using result_type = typename std::result_of<FuncType()>::type;

@@ -58,5 +58,6 @@ namespace Socket
 		bool operator!=(const Socket& rhs) const noexcept;
 		
 		bool tcp_nodelay() const noexcept;
+		bool tcp_nonblock() const noexcept;
 	};
 }

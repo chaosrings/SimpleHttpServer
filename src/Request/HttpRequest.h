@@ -3,8 +3,8 @@
 #include <string>
 #include <chrono>
 #include <memory>
-#include "../Socket/Socket.h"
-#include "../DataVariant/Abstract.h"
+#include "Socket/Socket.h"
+#include "DataVariant/Abstract.h"
 class HttpRequest
 {
 private:
@@ -50,9 +50,13 @@ public:
         auto iter=params.find(key);
         return iter!=params.end()? iter->second:"";
     }
+    size_t getBodyLength()
+    {
+        auto iter=headers.find("content-length");
+        return iter!=headers.end()? static_cast<size_t>(std::stoul(iter->second)):0;
+    }
     bool isKeepAlive(){return keep_alive;}
     std::string getRequestFileType();
-    bool parserHeader(std::string &strbuf,long &untreated);
+    bool setParamsFromUrl();
     bool setState();
-    bool parserBody(std::string &strbuf,long &untreated,Socket::Socket &socket);
 };

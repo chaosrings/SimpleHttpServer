@@ -47,6 +47,12 @@ aux_source_directory(
     src/ThreadPool  SOURCE_DIR
 )
 aux_source_directory(
+    src/Buffer SOURCE_DIR
+)
+aux_source_directory(
+    src/Reactor SOURCE_DIR
+)
+aux_source_directory(
     src/Utils  SOURCE_DIR
 )
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)

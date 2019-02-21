@@ -13,6 +13,7 @@
 #include "Request/HttpRequest.h"
 #include "Response/HttpResponse.h"
 #include "ThreadPool/threadpool.hpp"
+#include "Reactor/EventLoop.h"
 using namespace std;
 
 string getIndexHandle(HttpRequest &request,HttpResponse &response)
@@ -48,7 +49,7 @@ int main(int argc,char** argv)
 	}
 	else
 	{
-		thread_pool work_pool;
+		//thread_pool work_pool;
 		cout << "init sever" << endl;
 		Socket::Socket server;
 		if (!server.open())
@@ -56,23 +57,21 @@ int main(int argc,char** argv)
 		if (!server.bind(atoi(argv[1])))
 			cout << "error bind" << endl;
 		server.listen();
+		EventLoop loop;
+		thread t([&loop]()
+		{
+			loop.loop();
+		});
+		std::vector<shared_ptr<ServeHttp> > conns; 
 		while (true)
 		{
 			auto client_sock = server.accept();
-			client_sock.tcp_nodelay();
-			//打印状态 
-			work_pool.sumbit([&work_pool]{
-				work_pool.printStatus();
-			});
-			auto fut=work_pool.sumbit([&client_sock,&route]()
-			{
-				ServeHttp serve(std::move(client_sock));
-				bool success=serve.process(route);
-				#ifdef DEBUG
-					std::cout<<"thread "<<std::this_thread::get_id()<<" process success"<<endl;
-				#endif
-				return success? 0:-1;
-			});
+			if(client_sock.tcp_nodelay()==false)
+				break;
+			if(client_sock.tcp_nonblock()==false)
+				break;
+			conns.push_back(make_shared<ServeHttp>(std::move(client_sock),&route,&loop));
+			loop.addToPoller(conns.back()->getChannel().get());
 		}
 		server.close();
 	}

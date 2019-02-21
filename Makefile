@@ -123,6 +123,33 @@ myserver/fast:
 	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/build
 .PHONY : myserver/fast
 
+src/Buffer/Buffer.o: src/Buffer/Buffer.cpp.o
+
+.PHONY : src/Buffer/Buffer.o
+
+# target to build an object file
+src/Buffer/Buffer.cpp.o:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Buffer/Buffer.cpp.o
+.PHONY : src/Buffer/Buffer.cpp.o
+
+src/Buffer/Buffer.i: src/Buffer/Buffer.cpp.i
+
+.PHONY : src/Buffer/Buffer.i
+
+# target to preprocess a source file
+src/Buffer/Buffer.cpp.i:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Buffer/Buffer.cpp.i
+.PHONY : src/Buffer/Buffer.cpp.i
+
+src/Buffer/Buffer.s: src/Buffer/Buffer.cpp.s
+
+.PHONY : src/Buffer/Buffer.s
+
+# target to generate assembly for a file
+src/Buffer/Buffer.cpp.s:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Buffer/Buffer.cpp.s
+.PHONY : src/Buffer/Buffer.cpp.s
+
 src/DataVariant/FormUrlencoded.o: src/DataVariant/FormUrlencoded.cpp.o
 
 .PHONY : src/DataVariant/FormUrlencoded.o
@@ -176,6 +203,87 @@ src/DataVariant/TextPlain.s: src/DataVariant/TextPlain.cpp.s
 src/DataVariant/TextPlain.cpp.s:
 	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/DataVariant/TextPlain.cpp.s
 .PHONY : src/DataVariant/TextPlain.cpp.s
+
+src/Reactor/Channel.o: src/Reactor/Channel.cpp.o
+
+.PHONY : src/Reactor/Channel.o
+
+# target to build an object file
+src/Reactor/Channel.cpp.o:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/Channel.cpp.o
+.PHONY : src/Reactor/Channel.cpp.o
+
+src/Reactor/Channel.i: src/Reactor/Channel.cpp.i
+
+.PHONY : src/Reactor/Channel.i
+
+# target to preprocess a source file
+src/Reactor/Channel.cpp.i:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/Channel.cpp.i
+.PHONY : src/Reactor/Channel.cpp.i
+
+src/Reactor/Channel.s: src/Reactor/Channel.cpp.s
+
+.PHONY : src/Reactor/Channel.s
+
+# target to generate assembly for a file
+src/Reactor/Channel.cpp.s:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/Channel.cpp.s
+.PHONY : src/Reactor/Channel.cpp.s
+
+src/Reactor/Epoll.o: src/Reactor/Epoll.cpp.o
+
+.PHONY : src/Reactor/Epoll.o
+
+# target to build an object file
+src/Reactor/Epoll.cpp.o:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/Epoll.cpp.o
+.PHONY : src/Reactor/Epoll.cpp.o
+
+src/Reactor/Epoll.i: src/Reactor/Epoll.cpp.i
+
+.PHONY : src/Reactor/Epoll.i
+
+# target to preprocess a source file
+src/Reactor/Epoll.cpp.i:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/Epoll.cpp.i
+.PHONY : src/Reactor/Epoll.cpp.i
+
+src/Reactor/Epoll.s: src/Reactor/Epoll.cpp.s
+
+.PHONY : src/Reactor/Epoll.s
+
+# target to generate assembly for a file
+src/Reactor/Epoll.cpp.s:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/Epoll.cpp.s
+.PHONY : src/Reactor/Epoll.cpp.s
+
+src/Reactor/EventLoop.o: src/Reactor/EventLoop.cpp.o
+
+.PHONY : src/Reactor/EventLoop.o
+
+# target to build an object file
+src/Reactor/EventLoop.cpp.o:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/EventLoop.cpp.o
+.PHONY : src/Reactor/EventLoop.cpp.o
+
+src/Reactor/EventLoop.i: src/Reactor/EventLoop.cpp.i
+
+.PHONY : src/Reactor/EventLoop.i
+
+# target to preprocess a source file
+src/Reactor/EventLoop.cpp.i:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/EventLoop.cpp.i
+.PHONY : src/Reactor/EventLoop.cpp.i
+
+src/Reactor/EventLoop.s: src/Reactor/EventLoop.cpp.s
+
+.PHONY : src/Reactor/EventLoop.s
+
+# target to generate assembly for a file
+src/Reactor/EventLoop.cpp.s:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/EventLoop.cpp.s
+.PHONY : src/Reactor/EventLoop.cpp.s
 
 src/Request/HttpRequest.o: src/Request/HttpRequest.cpp.o
 
@@ -312,6 +420,33 @@ src/Socket/Socket.cpp.s:
 	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Socket/Socket.cpp.s
 .PHONY : src/Socket/Socket.cpp.s
 
+src/Utils/Utils.o: src/Utils/Utils.cpp.o
+
+.PHONY : src/Utils/Utils.o
+
+# target to build an object file
+src/Utils/Utils.cpp.o:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Utils/Utils.cpp.o
+.PHONY : src/Utils/Utils.cpp.o
+
+src/Utils/Utils.i: src/Utils/Utils.cpp.i
+
+.PHONY : src/Utils/Utils.i
+
+# target to preprocess a source file
+src/Utils/Utils.cpp.i:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Utils/Utils.cpp.i
+.PHONY : src/Utils/Utils.cpp.i
+
+src/Utils/Utils.s: src/Utils/Utils.cpp.s
+
+.PHONY : src/Utils/Utils.s
+
+# target to generate assembly for a file
+src/Utils/Utils.cpp.s:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Utils/Utils.cpp.s
+.PHONY : src/Utils/Utils.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -348,12 +483,24 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... myserver"
 	@echo "... edit_cache"
+	@echo "... src/Buffer/Buffer.o"
+	@echo "... src/Buffer/Buffer.i"
+	@echo "... src/Buffer/Buffer.s"
 	@echo "... src/DataVariant/FormUrlencoded.o"
 	@echo "... src/DataVariant/FormUrlencoded.i"
 	@echo "... src/DataVariant/FormUrlencoded.s"
 	@echo "... src/DataVariant/TextPlain.o"
 	@echo "... src/DataVariant/TextPlain.i"
 	@echo "... src/DataVariant/TextPlain.s"
+	@echo "... src/Reactor/Channel.o"
+	@echo "... src/Reactor/Channel.i"
+	@echo "... src/Reactor/Channel.s"
+	@echo "... src/Reactor/Epoll.o"
+	@echo "... src/Reactor/Epoll.i"
+	@echo "... src/Reactor/Epoll.s"
+	@echo "... src/Reactor/EventLoop.o"
+	@echo "... src/Reactor/EventLoop.i"
+	@echo "... src/Reactor/EventLoop.s"
 	@echo "... src/Request/HttpRequest.o"
 	@echo "... src/Request/HttpRequest.i"
 	@echo "... src/Request/HttpRequest.s"
@@ -369,6 +516,9 @@ help:
 	@echo "... src/Socket/Socket.o"
 	@echo "... src/Socket/Socket.i"
 	@echo "... src/Socket/Socket.s"
+	@echo "... src/Utils/Utils.o"
+	@echo "... src/Utils/Utils.i"
+	@echo "... src/Utils/Utils.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

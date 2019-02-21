@@ -36,6 +36,31 @@
 },
 {
   "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Buffer/Buffer.cpp.o -c /home/chaosrings/Desktop/myserver/src/Buffer/Buffer.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Buffer/Buffer.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Reactor/Channel.cpp.o -c /home/chaosrings/Desktop/myserver/src/Reactor/Channel.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Reactor/Channel.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Reactor/Epoll.cpp.o -c /home/chaosrings/Desktop/myserver/src/Reactor/Epoll.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Reactor/Epoll.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Reactor/EventLoop.cpp.o -c /home/chaosrings/Desktop/myserver/src/Reactor/EventLoop.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Reactor/EventLoop.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Utils/Utils.cpp.o -c /home/chaosrings/Desktop/myserver/src/Utils/Utils.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Utils/Utils.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
   "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/main.cpp.o -c /home/chaosrings/Desktop/myserver/src/main.cpp",
   "file": "/home/chaosrings/Desktop/myserver/src/main.cpp"
 }
