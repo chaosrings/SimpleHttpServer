@@ -18,9 +18,9 @@ public:
     Epoll();
     ~Epoll()=default;
     std::vector<sp_channel> getEventsRequest(int event_count);
-    void epoll_add(Channel *chan,const std::chrono::milliseconds& timeout);
-    void epoll_mod(Channel *chan,const std::chrono::milliseconds& timeout);
-    void epoll_del(Channel *chan);
+    void add(Channel *chan);
+    void mod(Channel *chan);
+    void del(Channel *chan);
 
     std::vector<Channel *> poll();
 };

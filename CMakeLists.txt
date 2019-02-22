@@ -32,15 +32,6 @@ aux_source_directory(
     src/Server SOURCE_DIR
 )
 aux_source_directory(
-    src/Request  SOURCE_DIR
-)
-aux_source_directory(
-    src/Response  SOURCE_DIR
-)
-aux_source_directory(
-    src/Resource  SOURCE_DIR
-)
-aux_source_directory(
     src/DataVariant  SOURCE_DIR
 )
 aux_source_directory(
@@ -54,6 +45,13 @@ aux_source_directory(
 )
 aux_source_directory(
     src/Utils  SOURCE_DIR
+)
+
+aux_source_directory(
+    src/App  SOURCE_DIR
+)
+aux_source_directory(
+    src/Timer  SOURCE_DIR
 )
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

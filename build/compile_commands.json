@@ -6,8 +6,13 @@
 },
 {
   "directory": "/home/chaosrings/Desktop/myserver/build",
-  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Server/ServeHttp.cpp.o -c /home/chaosrings/Desktop/myserver/src/Server/ServeHttp.cpp",
-  "file": "/home/chaosrings/Desktop/myserver/src/Server/ServeHttp.cpp"
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Server/HttpServer.cpp.o -c /home/chaosrings/Desktop/myserver/src/Server/HttpServer.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Server/HttpServer.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Server/Server.cpp.o -c /home/chaosrings/Desktop/myserver/src/Server/Server.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Server/Server.cpp"
 },
 {
   "directory": "/home/chaosrings/Desktop/myserver/build",
@@ -56,8 +61,28 @@
 },
 {
   "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Reactor/EventLoopThread.cpp.o -c /home/chaosrings/Desktop/myserver/src/Reactor/EventLoopThread.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Reactor/EventLoopThread.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Reactor/EventLoopThreadPool.cpp.o -c /home/chaosrings/Desktop/myserver/src/Reactor/EventLoopThreadPool.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Reactor/EventLoopThreadPool.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
   "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Utils/Utils.cpp.o -c /home/chaosrings/Desktop/myserver/src/Utils/Utils.cpp",
   "file": "/home/chaosrings/Desktop/myserver/src/Utils/Utils.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/App/application.cpp.o -c /home/chaosrings/Desktop/myserver/src/App/application.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/App/application.cpp"
+},
+{
+  "directory": "/home/chaosrings/Desktop/myserver/build",
+  "command": "/usr/bin/g++-7   -I/home/chaosrings/Desktop/myserver/build -I/home/chaosrings/Desktop/myserver -I/home/chaosrings/Desktop/myserver/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/home/chaosrings/Desktop/myserver/src  -g   -o CMakeFiles/myserver.dir/src/Timer/Timer.cpp.o -c /home/chaosrings/Desktop/myserver/src/Timer/Timer.cpp",
+  "file": "/home/chaosrings/Desktop/myserver/src/Timer/Timer.cpp"
 },
 {
   "directory": "/home/chaosrings/Desktop/myserver/build",

@@ -48,7 +48,8 @@
         "string": "cpp",
         "unordered_set": "cpp",
         "cinttypes": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "queue": "cpp"
     },
     "C_Cpp.configurationWarnings": "Disabled"
 }

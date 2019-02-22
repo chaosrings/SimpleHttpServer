@@ -1,7 +1,12 @@
-#include "ServeHttp.h"
+#include "HttpServer.h"
 #include "Utils/Utils.h"
 #include "DataVariant/TextPlain.h"
 #include "DataVariant/FormUrlencoded.h"
+#include "Timer/Timer.h"
+#include "Reactor/EventLoop.h"
+
+#include "common.h"
+
 #include <future>
 #include <iostream>
 #include <unordered_map>
@@ -10,8 +15,36 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
+static const int DEFAULT_TIMEOUT = 2;
 
-void ServeHttp::outStatusCode(Http::StatusCode code)
+
+HttpServer::HttpServer(Socket &&sock, decltype(route) pRoute, EventLoop *pLoop) noexcept : 
+socket(std::move(sock)),
+route(pRoute),
+loop(pLoop),
+channel(new Channel(pLoop,socket.get_fd())),
+state(ProcessState::EXPECT_HEADERS)
+{
+	request.keep_alive = false;
+	channel->setReadHandler(std::bind(&HttpServer::handleRead, this));
+	channel->setWriteHandler(std::bind(&HttpServer::handleWrite, this));
+}
+HttpServer::~HttpServer()
+{
+#ifdef DEBUG
+    std::string logMessage = this->socket.getMessage()+" finished,disconnection\n";
+    ::write(STDOUT_FILENO, logMessage.data(), logMessage.size());
+#endif
+socket.close();
+}
+void HttpServer::setup()
+{
+	channel->setHolder(shared_from_this());
+	channel->enableReading();
+	loop->addToPoller(channel.get(),DEFAULT_TIMEOUT);
+}
+
+void HttpServer::outStatusCode(Http::StatusCode code)
 {
 	static std::unordered_map<int, std::string> dict{
 		{0, "Empty"},
@@ -20,13 +53,12 @@ void ServeHttp::outStatusCode(Http::StatusCode code)
 		{401, "Unauthorized"},
 		{404, "Not Found"},
 		{500, "Internal Server Error"},
-		{503, "Server Unavailable"}
-	};
+		{503, "Server Unavailable"}};
 	int intcode = static_cast<int>(code);
 	std::string message = "HTTP/1.1 " + std::to_string(intcode) + " " + dict[intcode] + "\r\n";
 	outbuf.append(message);
 }
-bool ServeHttp::serveStatic()
+bool HttpServer::serveStatic()
 {
 	char cwd_buf[200];
 	getcwd(cwd_buf, sizeof(cwd_buf));
@@ -84,7 +116,7 @@ bool ServeHttp::serveStatic()
 	close(fd);
 	munmap(bytes, fileSize);
 }
-bool ServeHttp::serveDynamic()
+bool HttpServer::serveDynamic()
 {
 	auto methodname = request.getMethod() + ":" + request.getUrl();
 	auto iter = route->find(methodname);
@@ -110,21 +142,21 @@ bool ServeHttp::serveDynamic()
 	outbuf.append(body_str);
 }
 
-void ServeHttp::handleError(Http::StatusCode code)
+void HttpServer::handleError(Http::StatusCode code)
 {
 	outStatusCode(code);
-	string mes = outbuf.retrieveAllAsString()+"\r\n";
+	string mes = outbuf.retrieveAllAsString() + "\r\n";
 	socket.send(mes);
 	socket.close();
 }
 
-bool ServeHttp::parserHeader(std::string &strbuf)
+bool HttpServer::parserHeader(std::string &strbuf)
 {
 	using std::string;
 	if (strbuf.empty())
 		return false;
 	//end of http headers
-	size_t headers_end = strbuf.size()-4;
+	size_t headers_end = strbuf.size() - 4;
 	//headers_end+=2 to end loop(cur_pos!=header_end)
 	headers_end += 2;
 	if (headers_end == std::string::npos)
@@ -174,7 +206,7 @@ bool ServeHttp::parserHeader(std::string &strbuf)
 	return true;
 }
 
-bool ServeHttp::parserBody(std::string &strbuf)
+bool HttpServer::parserBody(std::string &strbuf)
 {
 	std::string contentType = request.getHeader("content-type");
 	if (contentType == "")
@@ -199,8 +231,14 @@ bool ServeHttp::parserBody(std::string &strbuf)
 	}
 	return process_result;
 }
-void ServeHttp::handleRead()
+void HttpServer::handleRead()
 {
+	//超时返回
+	auto guard = timer.lock();
+	if (guard)
+		guard->updateExpire(DEFAULT_TIMEOUT);
+	else
+		return;
 	int saveError = 0;
 	do
 	{
@@ -210,10 +248,12 @@ void ServeHttp::handleRead()
 			ssize_t n = inbuf.readFd(this->socket.get_fd(), &saveError);
 			if (n <= 0)
 			{
-				handleError(Http::StatusCode::EMPTY);
+				//立即失效
+				guard->updateExpire(0);
+				return;
 			}
 		}
-		if (this->state == ProcessState::EXPECT_HEADERS||this->state==ProcessState::INCOMPLETE_HEADERS)
+		if (this->state == ProcessState::EXPECT_HEADERS || this->state == ProcessState::INCOMPLETE_HEADERS)
 		{
 			auto header_end = inbuf.findCRLFCRLF();
 			if (header_end != nullptr)
@@ -231,7 +271,7 @@ void ServeHttp::handleRead()
 				break;
 			}
 		}
-		if (this->state == ProcessState::EXPECT_RECVBODY||this->state==ProcessState::INCOMPLETE_BODY)
+		if (this->state == ProcessState::EXPECT_RECVBODY || this->state == ProcessState::INCOMPLETE_BODY)
 		{
 			size_t body_len = request.getBodyLength();
 			if (body_len == 0)
@@ -272,27 +312,32 @@ void ServeHttp::handleRead()
 			}
 			channel->enableWriting();
 		}
-	} while (state != ProcessState::FINISH&&!inbuf.empty());
+	} while (state != ProcessState::FINISH && !inbuf.empty());
 }
 
-void ServeHttp::handleWrite()
+void HttpServer::handleWrite()
 {
-	if (socket.is_open())
+	//超时返回
+	auto guard = timer.lock();
+	if (guard)
+		guard->updateExpire(DEFAULT_TIMEOUT);
+	else
+		return;
+	
+	ssize_t n = ::write(socket.get_fd(), outbuf.peek(), outbuf.readableBytes());
+	if (n > 0)
 	{
-		ssize_t n = ::write(socket.get_fd(), outbuf.peek(), outbuf.readableBytes());
-		if (n > 0)
+		outbuf.retrieve(n);
+		if (outbuf.readableBytes() == 0)
 		{
-			outbuf.retrieve(n);
-			if (outbuf.readableBytes() == 0)
-			{
-				//写完，取消监听in事件
-				channel->disableWriting();
-			}
-			else
-			{
-				//未写完
-				channel->enableWriting();
-			}
+			//写完，取消监听in事件
+			channel->disableWriting();
+		}
+		else
+		{
+			//未写完
+			channel->enableWriting();
 		}
 	}
 }
+

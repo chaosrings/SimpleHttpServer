@@ -15,8 +15,9 @@ void Channel::handleEvents()
     {
         handleWrite();
     }
-    else
-    {
-        handleConn();
-    }
+}
+
+Channel::~Channel()
+{
+    loop->removeFromPoller(this);
 }

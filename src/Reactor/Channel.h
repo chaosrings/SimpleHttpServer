@@ -4,9 +4,8 @@
 #include <memory>
 #include <sys/epoll.h>
 #include <functional>
-
 class EventLoop;
-class ServeHttp;
+class HttpServer;
 
 class Channel
 {
@@ -18,7 +17,8 @@ private:
     uint32_t events;
     //目前的事件，根据revents来调用callback
     uint32_t revents; 
-
+    //holder
+    std::weak_ptr<HttpServer> holder;
     CallBack readHandler;
     CallBack writeHandler;
     CallBack connHandler;
@@ -42,10 +42,11 @@ private:
 public:
     Channel(EventLoop* _loop):loop(_loop){}
     Channel(EventLoop* _loop,int _fd):loop(_loop),fd(_fd){};
-    ~Channel()=default;
+    ~Channel();
     int getFd(){return fd;}
     void setFd(int _fd){fd=_fd;}
-   
+    std::shared_ptr<HttpServer> getHolder(){return holder.lock();}
+    void setHolder(std::shared_ptr<HttpServer> _holder){holder=_holder; }
     void setRevents(uint32_t ev){revents=ev;}
     void setEvents(uint32_t ev){events=ev;}
     uint32_t getEvents(){return events;}
