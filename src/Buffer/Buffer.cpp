@@ -3,10 +3,7 @@
 #include <errno.h>
 #include <sys/uio.h>
 
-
 const char Buffer::kCRLFCRLF[]="\r\n\r\n";
-const char Buffer::kCRLF[]="\r\n";
-
 
 ssize_t Buffer::readFd(int fd,int* savedErrorno)
 {

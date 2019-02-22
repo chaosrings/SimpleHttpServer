@@ -1,10 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/myserver.dir/src/Socket/Socket.cpp.o"
+  "CMakeFiles/myserver.dir/src/Server/HttpRequest.cpp.o"
+  "CMakeFiles/myserver.dir/src/Server/HttpResponse.cpp.o"
   "CMakeFiles/myserver.dir/src/Server/HttpServer.cpp.o"
   "CMakeFiles/myserver.dir/src/Server/Server.cpp.o"
-  "CMakeFiles/myserver.dir/src/Request/HttpRequest.cpp.o"
-  "CMakeFiles/myserver.dir/src/Response/HttpResponse.cpp.o"
-  "CMakeFiles/myserver.dir/src/Resource/Resource.cpp.o"
   "CMakeFiles/myserver.dir/src/DataVariant/FormUrlencoded.cpp.o"
   "CMakeFiles/myserver.dir/src/DataVariant/TextPlain.cpp.o"
   "CMakeFiles/myserver.dir/src/Buffer/Buffer.cpp.o"

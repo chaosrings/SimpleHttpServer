@@ -107,14 +107,14 @@ public:
         append(str.data(), str.size());
     }
 
-    void append(const char * /*restrict*/ data, size_t len)
+    void append(const char *  data, size_t len)
     {
         ensureWritableBytes(len);
         std::copy(data, data + len, beginWrite());
         hasWritten(len);
     }
 
-    void append(const void * /*restrict*/ data, size_t len)
+    void append(const void * data, size_t len)
     {
         append(static_cast<const char *>(data), len);
     }
@@ -147,18 +147,10 @@ public:
         assert(len <= readableBytes());
         writerIndex -= len;
     }
-    void prepend(const void * /*restrict*/ data, size_t len)
-    {
-        //在前部添加数据
-        assert(len <= prependableBytes());
-        readerIndex -= len;
-        const char *d = static_cast<const char *>(data);
-        std::copy(d, d + len, begin() + readerIndex);
-    }
+  
 
     void shrink(size_t reserve)
     {
-        // FIXME: use vector::shrink_to_fit() in C++ 11 if possible.
         Buffer other;
         other.ensureWritableBytes(readableBytes() + reserve);
         other.append(toStringPiece());
@@ -209,6 +201,5 @@ private:
     std::vector<char> buffer;
     size_t readerIndex;
     size_t writerIndex;
-    static const char kCRLF[];
     static const char kCRLFCRLF[];
 };

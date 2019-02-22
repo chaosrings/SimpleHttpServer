@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/chaosrings/Desktop/myserver/build
 CMakeFiles/myserver.dir/all:
 	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/depend
 	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/chaosrings/Desktop/myserver/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 "Built target myserver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/chaosrings/Desktop/myserver/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 "Built target myserver"
 .PHONY : CMakeFiles/myserver.dir/all
 
 # Include target in all.
@@ -76,7 +76,7 @@ all: CMakeFiles/myserver.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/myserver.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaosrings/Desktop/myserver/build/CMakeFiles 19
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaosrings/Desktop/myserver/build/CMakeFiles 18
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/myserver.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaosrings/Desktop/myserver/build/CMakeFiles 0
 .PHONY : CMakeFiles/myserver.dir/rule

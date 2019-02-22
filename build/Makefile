@@ -366,86 +366,59 @@ src/Reactor/EventLoopThreadPool.cpp.s:
 	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Reactor/EventLoopThreadPool.cpp.s
 .PHONY : src/Reactor/EventLoopThreadPool.cpp.s
 
-src/Request/HttpRequest.o: src/Request/HttpRequest.cpp.o
+src/Server/HttpRequest.o: src/Server/HttpRequest.cpp.o
 
-.PHONY : src/Request/HttpRequest.o
-
-# target to build an object file
-src/Request/HttpRequest.cpp.o:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Request/HttpRequest.cpp.o
-.PHONY : src/Request/HttpRequest.cpp.o
-
-src/Request/HttpRequest.i: src/Request/HttpRequest.cpp.i
-
-.PHONY : src/Request/HttpRequest.i
-
-# target to preprocess a source file
-src/Request/HttpRequest.cpp.i:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Request/HttpRequest.cpp.i
-.PHONY : src/Request/HttpRequest.cpp.i
-
-src/Request/HttpRequest.s: src/Request/HttpRequest.cpp.s
-
-.PHONY : src/Request/HttpRequest.s
-
-# target to generate assembly for a file
-src/Request/HttpRequest.cpp.s:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Request/HttpRequest.cpp.s
-.PHONY : src/Request/HttpRequest.cpp.s
-
-src/Resource/Resource.o: src/Resource/Resource.cpp.o
-
-.PHONY : src/Resource/Resource.o
+.PHONY : src/Server/HttpRequest.o
 
 # target to build an object file
-src/Resource/Resource.cpp.o:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Resource/Resource.cpp.o
-.PHONY : src/Resource/Resource.cpp.o
+src/Server/HttpRequest.cpp.o:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Server/HttpRequest.cpp.o
+.PHONY : src/Server/HttpRequest.cpp.o
 
-src/Resource/Resource.i: src/Resource/Resource.cpp.i
+src/Server/HttpRequest.i: src/Server/HttpRequest.cpp.i
 
-.PHONY : src/Resource/Resource.i
+.PHONY : src/Server/HttpRequest.i
 
 # target to preprocess a source file
-src/Resource/Resource.cpp.i:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Resource/Resource.cpp.i
-.PHONY : src/Resource/Resource.cpp.i
+src/Server/HttpRequest.cpp.i:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Server/HttpRequest.cpp.i
+.PHONY : src/Server/HttpRequest.cpp.i
 
-src/Resource/Resource.s: src/Resource/Resource.cpp.s
+src/Server/HttpRequest.s: src/Server/HttpRequest.cpp.s
 
-.PHONY : src/Resource/Resource.s
+.PHONY : src/Server/HttpRequest.s
 
 # target to generate assembly for a file
-src/Resource/Resource.cpp.s:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Resource/Resource.cpp.s
-.PHONY : src/Resource/Resource.cpp.s
+src/Server/HttpRequest.cpp.s:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Server/HttpRequest.cpp.s
+.PHONY : src/Server/HttpRequest.cpp.s
 
-src/Response/HttpResponse.o: src/Response/HttpResponse.cpp.o
+src/Server/HttpResponse.o: src/Server/HttpResponse.cpp.o
 
-.PHONY : src/Response/HttpResponse.o
+.PHONY : src/Server/HttpResponse.o
 
 # target to build an object file
-src/Response/HttpResponse.cpp.o:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Response/HttpResponse.cpp.o
-.PHONY : src/Response/HttpResponse.cpp.o
+src/Server/HttpResponse.cpp.o:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Server/HttpResponse.cpp.o
+.PHONY : src/Server/HttpResponse.cpp.o
 
-src/Response/HttpResponse.i: src/Response/HttpResponse.cpp.i
+src/Server/HttpResponse.i: src/Server/HttpResponse.cpp.i
 
-.PHONY : src/Response/HttpResponse.i
+.PHONY : src/Server/HttpResponse.i
 
 # target to preprocess a source file
-src/Response/HttpResponse.cpp.i:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Response/HttpResponse.cpp.i
-.PHONY : src/Response/HttpResponse.cpp.i
+src/Server/HttpResponse.cpp.i:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Server/HttpResponse.cpp.i
+.PHONY : src/Server/HttpResponse.cpp.i
 
-src/Response/HttpResponse.s: src/Response/HttpResponse.cpp.s
+src/Server/HttpResponse.s: src/Server/HttpResponse.cpp.s
 
-.PHONY : src/Response/HttpResponse.s
+.PHONY : src/Server/HttpResponse.s
 
 # target to generate assembly for a file
-src/Response/HttpResponse.cpp.s:
-	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Response/HttpResponse.cpp.s
-.PHONY : src/Response/HttpResponse.cpp.s
+src/Server/HttpResponse.cpp.s:
+	$(MAKE) -f CMakeFiles/myserver.dir/build.make CMakeFiles/myserver.dir/src/Server/HttpResponse.cpp.s
+.PHONY : src/Server/HttpResponse.cpp.s
 
 src/Server/HttpServer.o: src/Server/HttpServer.cpp.o
 
@@ -645,15 +618,12 @@ help:
 	@echo "... src/Reactor/EventLoopThreadPool.o"
 	@echo "... src/Reactor/EventLoopThreadPool.i"
 	@echo "... src/Reactor/EventLoopThreadPool.s"
-	@echo "... src/Request/HttpRequest.o"
-	@echo "... src/Request/HttpRequest.i"
-	@echo "... src/Request/HttpRequest.s"
-	@echo "... src/Resource/Resource.o"
-	@echo "... src/Resource/Resource.i"
-	@echo "... src/Resource/Resource.s"
-	@echo "... src/Response/HttpResponse.o"
-	@echo "... src/Response/HttpResponse.i"
-	@echo "... src/Response/HttpResponse.s"
+	@echo "... src/Server/HttpRequest.o"
+	@echo "... src/Server/HttpRequest.i"
+	@echo "... src/Server/HttpRequest.s"
+	@echo "... src/Server/HttpResponse.o"
+	@echo "... src/Server/HttpResponse.i"
+	@echo "... src/Server/HttpResponse.s"
 	@echo "... src/Server/HttpServer.o"
 	@echo "... src/Server/HttpServer.i"
 	@echo "... src/Server/HttpServer.s"
