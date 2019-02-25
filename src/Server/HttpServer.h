@@ -42,6 +42,7 @@ class HttpServer :public std::enable_shared_from_this<HttpServer>
     bool parserBody(std::string &strbuf);
     void handleRead();
     void handleWrite();
+    void handleClose();
     void handleError(Http::StatusCode code);
 
   public:

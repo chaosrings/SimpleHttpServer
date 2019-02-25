@@ -17,13 +17,11 @@
 #include <fcntl.h>
 static const int DEFAULT_TIMEOUT = 2;
 
-
-HttpServer::HttpServer(Socket &&sock, decltype(route) pRoute, EventLoop *pLoop) noexcept : 
-socket(std::move(sock)),
-route(pRoute),
-loop(pLoop),
-channel(new Channel(pLoop,socket.get_fd())),
-state(ProcessState::EXPECT_HEADERS)
+HttpServer::HttpServer(Socket &&sock, decltype(route) pRoute, EventLoop *pLoop) noexcept : socket(std::move(sock)),
+																						   route(pRoute),
+																						   loop(pLoop),
+																						   channel(new Channel(pLoop, socket.get_fd())),
+																						   state(ProcessState::EXPECT_HEADERS)
 {
 	request.keep_alive = false;
 	channel->setReadHandler(std::bind(&HttpServer::handleRead, this));
@@ -32,16 +30,16 @@ state(ProcessState::EXPECT_HEADERS)
 HttpServer::~HttpServer()
 {
 #ifdef DEBUG
-    std::string logMessage = this->socket.getMessage()+" finished,disconnection\n";
-    ::write(STDOUT_FILENO, logMessage.data(), logMessage.size());
+	std::string logMessage = this->socket.getMessage() + " finished,disconnection\n";
+	::write(STDOUT_FILENO, logMessage.data(), logMessage.size());
 #endif
-socket.close();
+	socket.close();
 }
 void HttpServer::setup()
 {
 	channel->setHolder(shared_from_this());
 	channel->enableReading();
-	loop->addToPoller(channel.get(),DEFAULT_TIMEOUT);
+	loop->addToPoller(channel.get(), DEFAULT_TIMEOUT);
 }
 
 void HttpServer::outStatusCode(Http::StatusCode code)
@@ -115,6 +113,7 @@ bool HttpServer::serveStatic()
 	/*----close file descriptor and memory unmap----*/
 	close(fd);
 	munmap(bytes, fileSize);
+	return true;
 }
 bool HttpServer::serveDynamic()
 {
@@ -140,6 +139,7 @@ bool HttpServer::serveDynamic()
 	outbuf.append(headers_str);
 	/*----------------------send body-----------------*/
 	outbuf.append(body_str);
+	return true;
 }
 
 void HttpServer::handleError(Http::StatusCode code)
@@ -147,7 +147,7 @@ void HttpServer::handleError(Http::StatusCode code)
 	outStatusCode(code);
 	string mes = outbuf.retrieveAllAsString() + "\r\n";
 	socket.send(mes);
-	socket.close();
+	handleClose();
 }
 
 bool HttpServer::parserHeader(std::string &strbuf)
@@ -294,13 +294,9 @@ void HttpServer::handleRead()
 		if (this->state == ProcessState::GET_ALL_REQ)
 		{
 			if (request.method == "get" && request.getRequestFileType() != "")
-			{
 				serveStatic();
-			}
-			else
-			{
+			else 
 				serveDynamic();
-			}
 			//处理完成，判断keepalive，为真循继续处理下一个请求
 			if (request.isKeepAlive())
 			{
@@ -309,7 +305,9 @@ void HttpServer::handleRead()
 			else
 			{
 				state = ProcessState::FINISH;
+				handleClose();
 			}
+			//允许写response
 			channel->enableWriting();
 		}
 	} while (state != ProcessState::FINISH && !inbuf.empty());
@@ -323,21 +321,36 @@ void HttpServer::handleWrite()
 		guard->updateExpire(DEFAULT_TIMEOUT);
 	else
 		return;
-	
 	ssize_t n = ::write(socket.get_fd(), outbuf.peek(), outbuf.readableBytes());
 	if (n > 0)
 	{
 		outbuf.retrieve(n);
+#ifdef DEBUG
+			std::string mes = this->socket.getMessage() + " write " + std::to_string(n) +
+							  " bytes, there is " + std::to_string(outbuf.readableBytes()) + " bytes left\n";
+			::write(STDOUT_FILENO, mes.data(), mes.size());
+#endif
 		if (outbuf.readableBytes() == 0)
 		{
-			//写完，取消监听in事件
+			//写完，取消监听out事件
 			channel->disableWriting();
 		}
 		else
 		{
 			//未写完
 			channel->enableWriting();
+
 		}
 	}
 }
 
+void HttpServer::handleClose()
+{
+	//拥有的socket只能当HttpServer被析构的时候才关闭
+	//这里将时间设置为立即超时，HttpServer将会在EventLoop的事件handle后被析构
+	auto guard = timer.lock();
+	if (guard)
+		guard->updateExpire(0);
+	else
+		return;
+}

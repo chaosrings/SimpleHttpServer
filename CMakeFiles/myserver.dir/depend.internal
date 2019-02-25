@@ -161,7 +161,6 @@ CMakeFiles/myserver.dir/src/Reactor/Epoll.cpp.o
  /usr/include/x86_64-linux-gnu/sys/socket.h
  /usr/include/x86_64-linux-gnu/sys/sysmacros.h
  /usr/include/x86_64-linux-gnu/sys/types.h
- src/common.h
 CMakeFiles/myserver.dir/src/Reactor/EventLoop.cpp.o
  /home/chaosrings/Desktop/myserver/src/Reactor/Channel.h
  /home/chaosrings/Desktop/myserver/src/Reactor/Epoll.h

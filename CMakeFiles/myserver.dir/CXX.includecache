@@ -85,8 +85,6 @@ functional
 /home/chaosrings/Desktop/myserver/src/Reactor/Epoll.cpp
 Epoll.h
 /home/chaosrings/Desktop/myserver/src/Reactor/Epoll.h
-common.h
-/home/chaosrings/Desktop/myserver/src/Reactor/common.h
 sys/socket.h
 -
 assert.h
