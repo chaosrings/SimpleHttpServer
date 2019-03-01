@@ -1,11 +1,12 @@
 #include "application.h"
 #include <future>
-once_flag initOnce;
-
 string getIndexHandle(HttpRequest &request,HttpResponse &response)
 {
 	string res="<html><body>";
-	int uid=stoi(request.getParameter("uid"));
+	std::string uidstr=request.getParameter("uid");
+	int uid=0;
+	if(uidstr!="")
+		uid=stoi(uidstr);
 	res+="<h1>";
 	if(uid==1)
 	{
@@ -26,7 +27,8 @@ string getIndexHandle(HttpRequest &request,HttpResponse &response)
 std::unordered_map<std::string,std::function<std::string(HttpRequest&,HttpResponse&)> >* getRouteMap()
 {
     static std::unordered_map<std::string,std::function<std::string(HttpRequest&,HttpResponse&)> > routeMap{
-        {"get:/index",getIndexHandle}
-    };
+        {"get:/index",getIndexHandle},
+		{"post:/index",getIndexHandle}
+	};
     return &routeMap;
 }

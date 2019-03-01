@@ -2,7 +2,6 @@
 #include "HttpServer.h"
 #include "App/application.h"
 #include <iostream>
-static const int DEFAULT_TIMEOUT = 2;
 
 Server::Server(EventLoop* _mainLoop,int _threadNum,int _port):
 mainLoop(_mainLoop),

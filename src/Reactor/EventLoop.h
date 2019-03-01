@@ -37,7 +37,7 @@ class EventLoop
     //接口暴露给eventloop外的线程
     void runTaskInLoopThread(Task &&task);
     //只会在IO线程中被调用
-    void addToPoller(Channel *channel, int timeout = 0)
+    void addToPoller(Channel *channel, TimerNode::TimeType timeout = 0)
     {
         auto holder = channel->getHolder();
         if (holder)

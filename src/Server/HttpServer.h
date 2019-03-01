@@ -53,4 +53,5 @@ class HttpServer :public std::enable_shared_from_this<HttpServer>
     void setup();
     void setTimer(std::shared_ptr<TimerNode> _timer) { this->timer = _timer; }
     void outStatusCode(Http::StatusCode code);
+    bool isOutBufferEmpty(){return outbuf.empty();}
 };

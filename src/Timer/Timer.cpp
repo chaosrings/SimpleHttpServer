@@ -1,14 +1,19 @@
+#include "common.h"
+#ifdef DEBUG
+    #include <string>
+#endif
 #include "Timer.h"
 #include "Server/HttpServer.h"
 #include <sys/time.h>
 #include <unistd.h>
 #include <queue>
 
-int getNowIntTime()
+TimerNode::TimeType getNowIntTime()
 {
     struct timeval now;
     gettimeofday(&now, NULL);
-    return now.tv_sec;
+    //微秒精度
+    return  TimerNode::TimeType(now.tv_sec)*1000+now.tv_usec/1000;
 }
 
 TimerNode::TimerNode(std::shared_ptr<HttpServer> _httpServer, TimeType timeout)
@@ -22,7 +27,7 @@ TimerNode::~TimerNode()
     //default
 }
 
-void TimerNode::updateExpire(int timeout)
+void TimerNode::updateExpire(TimeType timeout)
 {
     auto guard = timerManager;
     if (guard)
@@ -57,9 +62,13 @@ void TimerManager::updateExpire(TimerNode* node, TimerNode::TimeType timeout)
     if (this->timerContainer.find(oldExpire) != this->timerContainer.end())
     {
         //设置新的过期时间点
-        TimerNode::TimeType newExpire = getNowIntTime() + timeout;
+        TimerNode::TimeType newExpire = getNowIntTime() + timeout*1000;
+        #ifdef DEBUG
+            std::string msg= std::to_string(node->getExpireTime())+" update to "+std::to_string(newExpire)+"\n";
+            ::write(STDOUT_FILENO,msg.data(),msg.size());
+        #endif
         node->setExpireTime(newExpire); 
-        //遍历ExpireList找到要删除的节点，并在添加到新的ExpireList
+        //遍历ExpireList找到要删除的节点，并添加到新的ExpireList
         auto &oldExpireList=timerContainer[oldExpire];
         auto &newExpireList=timerContainer[newExpire];
         for(auto iter=oldExpireList.begin();iter!=oldExpireList.end();++iter)
@@ -87,6 +96,7 @@ void TimerManager::addTimer(std::shared_ptr<HttpServer> _httpServer, TimerNode::
     new_node->setTimeManager(this);
     timerContainer[new_node->getExpireTime()].push_back(new_node);
 }
+
 void TimerManager::handleExpiredEvent()
 {
     while (!timerContainer.empty())

@@ -126,5 +126,11 @@ bool Socket::tcp_nodelay() const noexcept
 }
 bool Socket::tcp_nonblock() const noexcept
 {
-	return fcntl(fd, fcntl(fd, F_GETFL, 0) | O_NONBLOCK) != 1;
+	int flag=fcntl(fd,F_GETFL,0);
+	if (flag==-1)
+		return -1;
+	flag|=O_NONBLOCK;
+	if(fcntl(fd,F_SETFL,flag)==-1)
+		return false;
+	return true;
 }

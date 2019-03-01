@@ -15,7 +15,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
-static const int DEFAULT_TIMEOUT = 2;
+static const int DEFAULT_TIMEOUT = 5;
 
 HttpServer::HttpServer(Socket &&sock, decltype(route) pRoute, EventLoop *pLoop) noexcept : socket(std::move(sock)),
 																						   route(pRoute),
@@ -99,8 +99,9 @@ bool HttpServer::serveStatic()
 	}
 	else
 	{
-		//default raw binary..
+		//default raw binary..,流式传输，5分钟过期
 		response.putHeaderValue("Content-Type", "application/octet-stream");
+		this->timer.lock()->updateExpire(60*5);
 	}
 	/*----------------------out status code-------------------*/
 	outStatusCode(Http::StatusCode::OK);
@@ -295,7 +296,7 @@ void HttpServer::handleRead()
 		{
 			if (request.method == "get" && request.getRequestFileType() != "")
 				serveStatic();
-			else 
+			else
 				serveDynamic();
 			//处理完成，判断keepalive，为真循继续处理下一个请求
 			if (request.isKeepAlive())
@@ -315,31 +316,25 @@ void HttpServer::handleRead()
 
 void HttpServer::handleWrite()
 {
-	//超时返回
-	auto guard = timer.lock();
-	if (guard)
-		guard->updateExpire(DEFAULT_TIMEOUT);
-	else
-		return;
 	ssize_t n = ::write(socket.get_fd(), outbuf.peek(), outbuf.readableBytes());
 	if (n > 0)
 	{
 		outbuf.retrieve(n);
 #ifdef DEBUG
-			std::string mes = this->socket.getMessage() + " write " + std::to_string(n) +
-							  " bytes, there is " + std::to_string(outbuf.readableBytes()) + " bytes left\n";
-			::write(STDOUT_FILENO, mes.data(), mes.size());
+		std::string mes = this->socket.getMessage() + " write " + std::to_string(n) +
+						  " bytes, there is " + std::to_string(outbuf.readableBytes()) + " bytes left\n";
+		::write(STDOUT_FILENO, mes.data(), mes.size());
 #endif
 		if (outbuf.readableBytes() == 0)
 		{
-			//写完，取消监听out事件
+			//写完，取消监听out事件,默认失效
 			channel->disableWriting();
+			this->timer.lock()->updateExpire(DEFAULT_TIMEOUT);
 		}
 		else
 		{
 			//未写完
 			channel->enableWriting();
-
 		}
 	}
 }
@@ -350,7 +345,7 @@ void HttpServer::handleClose()
 	//这里将时间设置为立即超时，HttpServer将会在EventLoop的事件handle后被析构
 	auto guard = timer.lock();
 	if (guard)
-		guard->updateExpire(0);
+		guard->updateExpire(-1);
 	else
 		return;
 }

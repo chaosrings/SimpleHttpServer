@@ -10,13 +10,13 @@ class TimerManager;
 class TimerNode
 {
 public:
-    using TimeType=int;
+    using TimeType=int64_t;
     TimerNode(std::shared_ptr<HttpServer> sp, TimeType timeout);
     ~TimerNode();
    
     void updateExpire(TimeType timeout);
     bool isValid();
-    void setExpireTime(int expire){expireTime=expire;} 
+    void setExpireTime(TimeType expire){expireTime=expire;} 
     TimeType getExpireTime() const { return expireTime; } 
     void setTimeManager(TimerManager* manager){this->timerManager=manager;}
 private:
@@ -31,8 +31,8 @@ public:
     using ContainerType= std::map<TimerNode::TimeType,std::list<std::shared_ptr<TimerNode>>>;
     TimerManager();
     ~TimerManager();
-    void addTimer(std::shared_ptr<HttpServer> HttpServer, int timeout);
-    void updateExpire(TimerNode* node,int timeout);
+    void addTimer(std::shared_ptr<HttpServer> HttpServer, TimerNode::TimeType timeout);
+    void updateExpire(TimerNode* node,TimerNode::TimeType timeout);
     void handleExpiredEvent();
 
 private:
